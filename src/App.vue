@@ -1,5 +1,8 @@
 <script lang="ts">
 import { ref, onMounted } from 'vue'
+import { storeToRefs } from "pinia";
+import { usePaymentsStore } from './stores/payments.ts'
+
 import PaymentApp from './layout/PaymentApp.vue'
 
 export default {
@@ -8,6 +11,9 @@ export default {
   },
   setup() {
     const loaded = ref(false)
+    const paymentsStore = usePaymentsStore()
+
+    const { total } = storeToRefs(paymentsStore);
 
     onMounted(async () => {
       try {
@@ -15,8 +21,9 @@ export default {
 
         if (response.ok) {
           const data = await response.json();
-          const efectivoCaja = data.efectivoCaja;
-          console.log(efectivoCaja);
+          console.log(paymentsStore)
+          total.value = data.efectivoCaja;
+          console.log(total.value);
           loaded.value = true
 
         } else {
