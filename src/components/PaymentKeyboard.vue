@@ -5,15 +5,31 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
     name: 'Calculator',
     setup() {
-        const display = ref('0');
-        const buttons = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        const display = ref(0);
+        const buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
         const onButtonClick = (button: string) => {
-            // Aquí agregarás la lógica para manejar los clics en los botones
-            console.log(button);
+            if (!isNaN(parseInt(button))) {
+                const numberClicked = parseInt(button);
+                if (display.value === 0) {
+                    display.value = numberClicked;
+                } else {
+                    display.value = parseInt(display.value.toString() + button);
+                }
+            }
         };
+        const deleteNumber = () => {
+            const displayString = display.value.toString();
 
-        return { display, buttons, onButtonClick };
+            if (displayString.length === 1) {
+                display.value = 0;
+            } else {
+                const newDisplayString = displayString.substring(0, displayString.length - 1);
+                display.value = parseInt(newDisplayString);
+            }
+        }
+
+        return { display, buttons, onButtonClick, deleteNumber };
     },
 });
 </script>
@@ -23,7 +39,7 @@ export default defineComponent({
         <div class="w-full p-2 bg-gray-200 border-b border-black mb-4 flex items-center">
             <div class="text-left flex-1 pl-4">$</div>
             <span class="text-right flex-1 pr-4">{{ display }}</span>
-            <button class="text-gray-600 hover:text-gray-800">
+            <button class="text-gray-600 hover:text-gray-800" @click="deleteNumber()">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="30px" height="30px" viewBox="0 -5 32 32"
                     version="1.1">
