@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import PaymentApp from './layout/PaymentApp.vue'
 </script>
 
 <template>
-  <HelloWorld  />
+  <PaymentApp  />
 </template>

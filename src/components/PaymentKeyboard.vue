@@ -3,7 +3,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'Calculator',
+    name: 'PaymentKeyboard',
     setup() {
         const display = ref(0);
         const buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];

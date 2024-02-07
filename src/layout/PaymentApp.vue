@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import InfoEdit from './InfoEdit.vue';
-import PaymentKeyboard from './PaymentKeyboard.vue';
-import PaymentsList from './PaymentsList.vue'
+import InfoEdit from '../components/InfoEdit.vue';
+import PaymentKeyboard from '../components/PaymentKeyboard.vue';
+import PaymentsList from '../components/PaymentsList.vue'
+import FullPayment from '../components/FullPayment.vue'
+
 </script>
 
 <template>
@@ -16,4 +18,5 @@ import PaymentsList from './PaymentsList.vue'
       <PaymentsList />
     </div>
   </div>
+  <FullPayment />
 </template>
