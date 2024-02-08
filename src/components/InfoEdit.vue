@@ -6,7 +6,7 @@ export default {
     name: "InfoEdit",
     setup() {
         const paymentsStore = usePaymentsStore();
-        const { tipoDePago, total } = storeToRefs(paymentsStore);
+        const { tipoDePago, total, totalPagado } = storeToRefs(paymentsStore);
         const numeroPersonas = ref<number>(1);
 
         const seleccionarTipoDePago = (tipo: string) => {
@@ -19,7 +19,11 @@ export default {
             return numeroPersonas.value === 0 ? '0.00' : total.value / numeroPersonas.value;
         });
 
-        return { seleccionarTipoDePago, tipoDePago, total, numeroPersonas, totalDividido };
+        const totalPropinas = computed(() => {
+            return total.value - totalPagado.value
+        });
+
+        return { seleccionarTipoDePago, tipoDePago, total, numeroPersonas, totalDividido, totalPropinas };
     },
 };
 </script>
@@ -35,7 +39,7 @@ export default {
                         <span class="ml-3 text-red-500">$</span>
                         <input
                             class="text-right form-input block w-full rounded-md bg-red-100 focus:outline-none focus:border-none text-red-500 pr-2"
-                            type="text" id="total-propinas" :value="total" />
+                            type="text" id="total-propinas" :value="totalPropinas" />
                     </div>
                     <span class="pl-2">@</span>
                 </div>

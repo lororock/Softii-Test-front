@@ -46,8 +46,15 @@ export const usePaymentsStore = defineStore("payments", {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
-        this.pagosList = data.pagos;
+        const index = this.pagosList.findIndex((pago) => pago.id === id);
+
+        if (index !== -1) {
+          const valorPagoEliminado = this.pagosList[index].value;
+          this.totalPagado -= valorPagoEliminado;
+
+          const data = await response.json();
+          this.pagosList = data.pagos;
+        }
       } catch (error) {
         console.error("Hubo un error al eliminar el pago:", error);
       }
