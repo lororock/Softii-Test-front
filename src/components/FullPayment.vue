@@ -6,13 +6,14 @@ export default {
     name: "FullPayment",
     setup() {
         const paymentsStore = usePaymentsStore();
-        const { total, totalPagado } = storeToRefs(paymentsStore);
+        const { total, totalPagado, tipoDePago } = storeToRefs(paymentsStore);
+        const enviarPago = paymentsStore.enviarPago;
 
         const totalDividido = computed(() => {
             return total.value - totalPagado.value
         });
 
-        return { total, totalDividido, totalPagado};
+        return { total, totalDividido, totalPagado, tipoDePago, enviarPago };
     },
 };
 </script>
@@ -30,8 +31,10 @@ export default {
                     <span class="text-lg font-bold text-gray-800">${{ totalDividido }}</span>
                 </div>
             </div>
-            <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-                Pagar $1,500.00 en Propinas
+            <button @click="enviarPago(tipoDePago, totalDividido)"
+                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                :disabled="totalDividido <= 0 || tipoDePago == ''">
+                Pagar ${{ totalDividido }} en Propinas
             </button>
         </div>
     </div>
