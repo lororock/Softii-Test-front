@@ -72,7 +72,6 @@ export default defineComponent({
                 class="bg-white w-12 h-12 rounded-lg flex items-center justify-center text-gray-700 text-2xl hover:bg-gray-100 focus:outline-none">
                 {{ button }}
             </button>
-            <!-- Añade botones especiales para '00' y '✓' -->
             <button @click="onButtonClick('00')"
                 class="col-span-2 bg-white w-full h-12 rounded-lg flex items-center justify-center text-gray-700 text-2xl hover:bg-gray-100 focus:outline-none">
                 00

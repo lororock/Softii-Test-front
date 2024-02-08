@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { storeToRefs } from "pinia";
 import { usePaymentsStore } from '../stores/payments.ts'
 export default {
-    name: "PaymentSplitter",
+    name: "InfoEdit",
     setup() {
         const paymentsStore = usePaymentsStore();
         const { tipoDePago, total } = storeToRefs(paymentsStore);

@@ -11,10 +11,6 @@ export default {
 
         return { pagosList, eliminarPago };
     },
-
-    methods: {
-        // Aquí puedes añadir los métodos del componente
-    },
 };
 </script>
 <template>
