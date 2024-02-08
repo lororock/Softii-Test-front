@@ -1,14 +1,17 @@
 <script lang="ts">
+import { storeToRefs } from "pinia";
 import { usePaymentsStore } from '../stores/payments.ts'
 export default {
     name: "PaymentSplitter",
     setup() {
         const paymentsStore = usePaymentsStore();
 
+        const { tipoDePago } = storeToRefs(paymentsStore);
+
         const seleccionarTipoDePago = (tipo: string) => {
             paymentsStore.tipoDePago = tipo;
         };
-        return { seleccionarTipoDePago };
+        return { seleccionarTipoDePago, tipoDePago };
     },
     methods: {
         // Aquí puedes añadir los métodos del componente
@@ -47,15 +50,17 @@ export default {
             <div class="mb-6">
                 <span class="text-gray-700 font-semibold">Elige el Método de Pago</span>
                 <div class="grid grid-cols-2 gap-4 mt-4">
-                    <button @click="seleccionarTipoDePago('Efectivo')"
+                    <button @click="seleccionarTipoDePago('Efectivo')" :class="{ 'bg-red-200': tipoDePago === 'Efectivo' }"
                         class="flex items-center justify-center p-4 border rounded-lg shadow-xl hover:shadow-sm hover:bg-red-200 transition-shadow duration-200">
                         <span>Efectivo</span>
                     </button>
                     <button @click="seleccionarTipoDePago('BBVA 1234')"
+                        :class="{ 'bg-red-200': tipoDePago === 'BBVA 1234' }"
                         class="flex items-center justify-center p-4 border rounded-lg shadow-xl hover:shadow-sm hover:bg-red-200 transition-shadow duration-200">
                         <span>BBVA 1234</span>
                     </button>
                     <button @click="seleccionarTipoDePago('Santander 1234')"
+                        :class="{ 'bg-red-200': tipoDePago === 'Santander 1234' }"
                         class="flex items-center justify-center p-4 border rounded-lg shadow-xl hover:shadow-sm hover:bg-red-200 transition-shadow duration-200">
                         <span>Santander 1234</span>
                     </button>
