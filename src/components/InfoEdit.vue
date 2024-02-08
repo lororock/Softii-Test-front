@@ -16,7 +16,7 @@ export default {
 
 
         const totalDividido = computed(() => {
-            return numeroPersonas.value === 0 ? '0.00' : total.value / numeroPersonas.value;
+            return numeroPersonas.value === 0 ? '0.00' : totalPropinas.value / numeroPersonas.value;
         });
 
         const totalPropinas = computed(() => {
