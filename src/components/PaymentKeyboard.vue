@@ -1,5 +1,7 @@
 
 <script lang="ts">
+import { storeToRefs } from "pinia";
+import { usePaymentsStore } from '../stores/payments.ts'
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -7,6 +9,10 @@ export default defineComponent({
     setup() {
         const display = ref(0);
         const buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        const paymentsStore = usePaymentsStore()
+        const { tipoDePago } = storeToRefs(paymentsStore);
+        const enviarPago = paymentsStore.enviarPago;
+
 
         const onButtonClick = (button: string) => {
             if (!isNaN(parseInt(button))) {
@@ -17,6 +23,7 @@ export default defineComponent({
                     display.value = parseInt(display.value.toString() + button);
                 }
             }
+
         };
         const deleteNumber = () => {
             const displayString = display.value.toString();
@@ -29,7 +36,7 @@ export default defineComponent({
             }
         }
 
-        return { display, buttons, onButtonClick, deleteNumber };
+        return { display, buttons, onButtonClick, deleteNumber, enviarPago, tipoDePago };
     },
 });
 </script>
@@ -70,7 +77,7 @@ export default defineComponent({
                 class="col-span-2 bg-white w-full h-12 rounded-lg flex items-center justify-center text-gray-700 text-2xl hover:bg-gray-100 focus:outline-none">
                 00
             </button>
-            <button @click="onButtonClick('✓')"
+            <button @click="enviarPago(tipoDePago, display)"
                 class="bg-gray-400 w-8 h-8 m-auto rounded-lg flex items-center justify-center text-white text-2xl hover:text-black hover:bg-white focus:outline-none">
                 ✓
             </button>

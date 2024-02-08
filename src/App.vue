@@ -13,7 +13,7 @@ export default {
     const loaded = ref(false)
     const paymentsStore = usePaymentsStore()
 
-    const { total } = storeToRefs(paymentsStore);
+    const { total, pagosList } = storeToRefs(paymentsStore);
 
     onMounted(async () => {
       try {
@@ -21,9 +21,9 @@ export default {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(paymentsStore)
+          pagosList.value = data.pagos
           total.value = data.efectivoCaja;
-          console.log(total.value);
+          console.log(total.value, data.pagos);
           loaded.value = true
 
         } else {
