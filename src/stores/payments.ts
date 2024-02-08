@@ -7,6 +7,7 @@ interface Pago {
 export const usePaymentsStore = defineStore("payments", {
   state: () => ({
     total: 0,
+    totalPagado: 0,
     tipoDePago: '',
     pagosList: [{ paymentType: "st" }] as Pago[],
   }),

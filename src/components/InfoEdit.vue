@@ -1,20 +1,25 @@
 <script lang="ts">
+import { computed, ref } from 'vue';
 import { storeToRefs } from "pinia";
 import { usePaymentsStore } from '../stores/payments.ts'
 export default {
     name: "PaymentSplitter",
     setup() {
         const paymentsStore = usePaymentsStore();
-
-        const { tipoDePago } = storeToRefs(paymentsStore);
+        const { tipoDePago, total } = storeToRefs(paymentsStore);
+        const numeroPersonas = ref<number>(1);
 
         const seleccionarTipoDePago = (tipo: string) => {
             paymentsStore.tipoDePago = tipo;
         };
-        return { seleccionarTipoDePago, tipoDePago };
-    },
-    methods: {
-        // Aquí puedes añadir los métodos del componente
+
+
+
+        const totalDividido = computed(() => {
+            return numeroPersonas.value === 0 ? '0.00' : total.value / numeroPersonas.value;
+        });
+
+        return { seleccionarTipoDePago, tipoDePago, total, numeroPersonas, totalDividido };
     },
 };
 </script>
@@ -30,7 +35,7 @@ export default {
                         <span class="ml-3 text-red-500">$</span>
                         <input
                             class="text-right form-input block w-full rounded-md bg-red-100 focus:outline-none focus:border-none text-red-500 pr-2"
-                            type="text" id="total-propinas" value="3" />
+                            type="text" id="total-propinas" :value="total" />
                     </div>
                     <span class="pl-2">@</span>
                 </div>
@@ -39,11 +44,11 @@ export default {
                 <label for="people" class="block text-center text-gray-700 font-semibold mb-2">¿Entre cuántos quieres
                     dividir las Propinas?</label>
                 <div class="flex">
-                    <input type="number" id="people"
+                    <input type="number" id="people" v-model="numeroPersonas"
                         class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         placeholder="#" />
                     <div class="flex-1  font-semibold flex justify-center items-center  text-red-500 ">
-                        $0.00 x Persona</div>
+                        ${{ totalDividido }} x Persona</div>
                 </div>
             </div>
 

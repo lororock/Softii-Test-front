@@ -77,7 +77,7 @@ export default defineComponent({
                 class="col-span-2 bg-white w-full h-12 rounded-lg flex items-center justify-center text-gray-700 text-2xl hover:bg-gray-100 focus:outline-none">
                 00
             </button>
-            <button @click="enviarPago(tipoDePago, display)"
+            <button @click="enviarPago(tipoDePago, display)" :disabled="tipoDePago == '' || display === 0  ? true : false"
                 class="bg-gray-400 w-8 h-8 m-auto rounded-lg flex items-center justify-center text-white text-2xl hover:text-black hover:bg-white focus:outline-none">
                 ✓
             </button>

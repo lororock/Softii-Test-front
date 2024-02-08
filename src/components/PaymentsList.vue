@@ -9,7 +9,6 @@ export default {
         const { pagosList } = storeToRefs(paymentsStore);
         const eliminarPago = paymentsStore.eliminarPago;
 
-
         return { pagosList, eliminarPago };
     },
 
